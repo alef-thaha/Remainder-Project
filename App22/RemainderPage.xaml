@@ -1,0 +1,164 @@
+﻿<Page
+    x:Class="App22.RemainderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App22"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:App22.Model"
+    xmlns:conv="using:App22.Converter"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Page.Resources>
+        <conv:DatetimetostringConverter x:Key="DateTimetoString"/>
+        <conv:StringtoCollapseConverter x:Key="StringtoCollapse"/>
+        <conv:DatetoCollapsedConverter x:Key="Datetocollapse"/>
+        <data:Remainder x:Key="remainderdata"/>
+    </Page.Resources>
+    <Grid BorderThickness="1" Width="660"  HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Background="Blue">
+            <TextBlock x:Name="Mytextblock" Text="Remainders" RelativePanel.AlignLeftWithPanel="True" FontSize="30" Foreground="White"/>
+            <Button x:Name="MyCancelButton" FontFamily="Segoe MDL2 Assets" Content="&#xE8BB;" Foreground="White" RelativePanel.AlignRightWithPanel="true" Click="MyCancelButton_Click"/>
+            <Button x:Name="FormeButton" Content="For me"  FontSize="18" Foreground="white"  BorderThickness="0,0,0,2" BorderBrush="White"  Margin="10,0,0,0" RelativePanel.Below="Mytextblock"  Background="blue" Click="FormeButton_Click" FontWeight="Bold" />
+            <Button Name="AssignButton" Content="Assigned for others"  FontSize="18" Foreground="white"  BorderThickness="0,0,0,0" BorderBrush="White" Margin="10,0,0,0" RelativePanel.Below="Mytextblock" RelativePanel.RightOf="FormeButton" Background="Blue" FontWeight="Bold" Click="AssignButton_Click"/>
+            <Button x:Name="MyChangeButton" Content="Change All" RelativePanel.Below="Mytextblock"  RelativePanel.RightOf="AssignButton" Foreground="White" Click="MyChangeButton_Click"/>
+        </RelativePanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="MytextBox" PlaceholderText="Set a remainder"    Background="White" BorderThickness="0,0,0,0"  BorderBrush="Black" Margin="0,18,0,0"/>
+            <Button x:Name="ClockButton" Grid.Column="1"  Height="30" Width="50"  Background="White" Foreground="Black"  FontSize="25" BorderThickness="0,0,0,0" Margin="0,15,5,0"  CornerRadius="3" BorderBrush="White">
+                <SymbolIcon Symbol="Calendar" />
+                <Button.Flyout>
+                    <Flyout x:Name="ClockFlyout" >
+                        <StackPanel >
+                            <CalendarView Name="Mycalenderview" SelectionMode="Single"/>
+                            <TimePicker x:Name="MyTimepicker" Width="300"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ClockSaveButton"  Content="Save" Foreground="Green" Background="White" Width="150" Click="ClockSaveButton_Click"/>
+                                <Button Name="ClockCancelButton" Content="Cancel" Foreground="red" Background="White" Width="150" Click="ClockCancelButton_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            
+            <Button x:Name="AtButton"  Height="30" Width="50" FontSize="2"  Background="White" Grid.Column="2" BorderThickness="0,0,0,0" Margin="0,15,5,0"  Click="AtButton_Click" BorderBrush="White" CornerRadius="3">
+                <SymbolIcon Symbol="People"/>
+                <Button.Flyout >
+                    <Flyout x:Name="AtFlyout" >
+                       
+                            <Grid Width="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Button x:Name="Myuserbutton" Content="Load the File" FontSize="20" Click="Myuserbutton_Click" />
+                            <TextBox x:Name="MyUserTextbox"  PlaceholderText="Search by Name or Adress" TextChanged="MyUserTextbox_TextChanged" IsAccessKeyScope="True" Grid.Row="1"  />
+ 
+                            <ListView ItemsSource="{x:Bind Userfiltered }"  x:Name="Mylistview" Grid.Row="2" Margin="0,10,0,0"  >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:User">
+                                        <Border BorderBrush="AliceBlue">
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Bind Name}"/>
+                                                <TextBlock Text="{x:Bind Position}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                                    <Button x:Name="AtSaveButton"  Content="Save" Foreground="Green" Background="White" Width="150" Click="AtSaveButton_Click"/>
+                                    <Button Name="AtCancelButton" Content="Cancel" Foreground="red" Background="White" Width="150" Click="AtCancelButton_Click"/>
+                                </StackPanel>
+                            </Grid>
+                                       
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+          
+            <Button x:Name="SetButton" Content="SET" CornerRadius="3" FontSize="14" Background="RoyalBlue" Margin="0,14,20,0" Click="SetButton_Click" Grid.Column="3" Height="30" Tag="{Binding Id}"/>
+        </Grid>
+        <Line StrokeThickness="1" Stroke="Black"  X1="0" X2="660" Grid.Row="2"  />
+        <Grid  Grid.Row="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <SplitView x:Name="RemaindSplitview" CompactPaneLength="0" OpenPaneLength="360"  Grid.Column="1" DisplayMode="CompactInline"   >
+                <SplitView.Pane>
+                    <StackPanel Width="Auto" Margin="10"  >
+                        <TextBox x:Name="SplitviewTextbox" PlaceholderText="Change remainder name"  Margin="0,0,20,10" Width="300"/>
+                       
+                            
+                            <TextBlock x:Name="SplitviewTextBlock" Text="{Binding Converter={StaticResource DateTimetoString}}" Width="Auto" Margin="10,0,0,10"/>
+                        
+                       
+                        <CalendarView x:Name="SplitCalendarview" SelectionMode="Single" Margin="0,0,0,10"/>
+                        <TimePicker x:Name="SplitTimePicker" ClockIdentifier="12HourClock" Width="300" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button   x:Name="SplitButton" Content="Save"  Click="SplitButton_Click" Foreground="Green"  Background="White" Margin="0,0,10,0" Width="140"/>
+                            <Button x:Name="SplitcancelButton" Content="Cancel" Foreground="Red" Background="White" Click="SplitcancelButton_Click" Width="150"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </SplitView.Pane>
+            </SplitView>
+
+            <ListView Name="RemaindListview" ItemsSource="{x:Bind Remainders}" ItemClick="RemaindListview_ItemClick" IsItemClickEnabled="True"  Background="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:Name="RemaindDatatemplate" x:DataType="data:Remainder">
+                        <Grid Margin="10"    >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock x:Name="Remaindtextblock" Text="{Binding RemainderName }" TextTrimming="CharacterEllipsis"  />
+                            
+                                <!--TextBox x:Name="ChangeTextbox" Text="{Binding RemainderName,Mode=TwoWay}" KeyDown="ChangeTextbox_KeyDown" Width="100"  Margin="10,0,0,0"/-->
+                            <!--Button  Click="Button_Click"  Content="Edit"   Grid.Column="1">
+                                
+                            </-->
+                            
+                                
+                                <TextBlock Text="{x:Bind RemainderDate,Mode=OneWay,Converter={StaticResource DateTimetoString},ConverterParameter=\{0:dd/MMM/yyyy hh:mm:ss tt\}}" Grid.Row="1"   />
+                            
+                            
+                            <TextBlock Text="{x:Bind ReminaderUser.Name}" Visibility="{x:Bind ReminaderUser, Converter={StaticResource StringtoCollapse}}" Grid.Row="2" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

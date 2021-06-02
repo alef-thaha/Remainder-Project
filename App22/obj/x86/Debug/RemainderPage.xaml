@@ -1,0 +1,165 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="App22.RemainderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App22"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:App22.Model"
+    xmlns:conv="using:App22.Converter"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Page.Resources>
+        <conv:DatetimetostringConverter x:Key="DateTimetoString"/>
+        <conv:StringtoCollapseConverter x:Key="StringtoCollapse"/>
+        <conv:DatetoCollapsedConverter x:Key="Datetocollapse"/>
+        <data:Remainder x:Key="remainderdata"/>
+    </Page.Resources>
+    <Grid BorderThickness="1" Width="660"  HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Background="Blue">
+            <TextBlock x:ConnectionId='34' x:Name="Mytextblock" Text="Remainders" RelativePanel.AlignLeftWithPanel="True" FontSize="30" Foreground="White"/>
+            <Button x:ConnectionId='35' x:Name="MyCancelButton" FontFamily="Segoe MDL2 Assets" Content="&#xE8BB;" Foreground="White" RelativePanel.AlignRightWithPanel="true"                             />
+            <Button x:ConnectionId='36' x:Name="FormeButton" Content="For me"  FontSize="18" Foreground="white"  BorderThickness="0,0,0,2" BorderBrush="White"  Margin="10,0,0,0" RelativePanel.Below="Mytextblock"  Background="blue"                           FontWeight="Bold" />
+            <Button x:ConnectionId='37' Name="AssignButton" Content="Assigned for others"  FontSize="18" Foreground="white"  BorderThickness="0,0,0,0" BorderBrush="White" Margin="10,0,0,0" RelativePanel.Below="Mytextblock" RelativePanel.RightOf="FormeButton" Background="Blue" FontWeight="Bold"                           />
+            <Button x:ConnectionId='38' x:Name="MyChangeButton" Content="Change All" RelativePanel.Below="Mytextblock"  RelativePanel.RightOf="AssignButton" Foreground="White"                             />
+        </RelativePanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:ConnectionId='15' x:Name="MytextBox" PlaceholderText="Set a remainder"    Background="White" BorderThickness="0,0,0,0"  BorderBrush="Black" Margin="0,18,0,0"/>
+            <Button x:ConnectionId='16' x:Name="ClockButton" Grid.Column="1"  Height="30" Width="50"  Background="White" Foreground="Black"  FontSize="25" BorderThickness="0,0,0,0" Margin="0,15,5,0"  CornerRadius="3" BorderBrush="White">
+                <SymbolIcon Symbol="Calendar" />
+                <Button.Flyout>
+                    <Flyout x:ConnectionId='29' x:Name="ClockFlyout" >
+                        <StackPanel >
+                            <CalendarView x:ConnectionId='30' Name="Mycalenderview" SelectionMode="Single"/>
+                            <TimePicker x:ConnectionId='31' x:Name="MyTimepicker" Width="300"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:ConnectionId='32' x:Name="ClockSaveButton"  Content="Save" Foreground="Green" Background="White" Width="150"                              />
+                                <Button x:ConnectionId='33' Name="ClockCancelButton" Content="Cancel" Foreground="red" Background="White" Width="150"                                />
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            
+            <Button x:ConnectionId='17' x:Name="AtButton"  Height="30" Width="50" FontSize="2"  Background="White" Grid.Column="2" BorderThickness="0,0,0,0" Margin="0,15,5,0"                         BorderBrush="White" CornerRadius="3">
+                <SymbolIcon Symbol="People"/>
+                <Button.Flyout >
+                    <Flyout x:ConnectionId='19' x:Name="AtFlyout" >
+                       
+                            <Grid Width="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Button x:ConnectionId='20' x:Name="Myuserbutton" Content="Load the File" FontSize="20"                            />
+                            <TextBox x:ConnectionId='21' x:Name="MyUserTextbox"  PlaceholderText="Search by Name or Adress"                                         IsAccessKeyScope="True" Grid.Row="1"  />
+ 
+                            <ListView x:ConnectionId='22'                                       x:Name="Mylistview" Grid.Row="2" Margin="0,10,0,0"  >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate                       >
+                                        <Border x:ConnectionId='26' BorderBrush="AliceBlue">
+                                            <StackPanel>
+                                                <TextBlock x:ConnectionId='27'                     />
+                                                <TextBlock x:ConnectionId='28'                         />
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                                    <Button x:ConnectionId='23' x:Name="AtSaveButton"  Content="Save" Foreground="Green" Background="White" Width="150"                           />
+                                    <Button x:ConnectionId='24' Name="AtCancelButton" Content="Cancel" Foreground="red" Background="White" Width="150"                             />
+                                </StackPanel>
+                            </Grid>
+                                       
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+          
+            <Button x:ConnectionId='18' x:Name="SetButton" Content="SET" CornerRadius="3" FontSize="14" Background="RoyalBlue" Margin="0,14,20,0"                         Grid.Column="3" Height="30" Tag="{Binding Id}"/>
+        </Grid>
+        <Line StrokeThickness="1" Stroke="Black"  X1="0" X2="660" Grid.Row="2"  />
+        <Grid  Grid.Row="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <SplitView x:ConnectionId='2' x:Name="RemaindSplitview" CompactPaneLength="0" OpenPaneLength="360"  Grid.Column="1" DisplayMode="CompactInline"   >
+                <SplitView.Pane>
+                    <StackPanel Width="Auto" Margin="10"  >
+                        <TextBox x:ConnectionId='9' x:Name="SplitviewTextbox" PlaceholderText="Change remainder name"  Margin="0,0,20,10" Width="300"/>
+                       
+                            
+                            <TextBlock x:ConnectionId='10' x:Name="SplitviewTextBlock" Text="{Binding Converter={StaticResource DateTimetoString}}" Width="Auto" Margin="10,0,0,10"/>
+                        
+                       
+                        <CalendarView x:ConnectionId='11' x:Name="SplitCalendarview" SelectionMode="Single" Margin="0,0,0,10"/>
+                        <TimePicker x:ConnectionId='12' x:Name="SplitTimePicker" ClockIdentifier="12HourClock" Width="300" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button x:ConnectionId='13'   x:Name="SplitButton" Content="Save"                            Foreground="Green"  Background="White" Margin="0,0,10,0" Width="140"/>
+                            <Button x:ConnectionId='14' x:Name="SplitcancelButton" Content="Cancel" Foreground="Red" Background="White"                                 Width="150"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </SplitView.Pane>
+            </SplitView>
+
+            <ListView x:ConnectionId='3' Name="RemaindListview"                                                                         IsItemClickEnabled="True"  Background="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:Name="RemaindDatatemplate"                            >
+                        <Grid x:ConnectionId='5' Margin="10"    >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock x:Name="Remaindtextblock" Text="{Binding RemainderName }" TextTrimming="CharacterEllipsis"  />
+                            
+                                <!--TextBox x:Name="ChangeTextbox" Text="{Binding RemainderName,Mode=TwoWay}" KeyDown="ChangeTextbox_KeyDown" Width="100"  Margin="10,0,0,0"/-->
+                            <!--Button  Click="Button_Click"  Content="Edit"   Grid.Column="1">
+                                
+                            </-->
+                            
+                                
+                                <TextBlock x:ConnectionId='7'                                                                                                                                        Grid.Row="1"   />
+                            
+                            
+                            <TextBlock x:ConnectionId='8'                                                                                                                     Grid.Row="2" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>
+
